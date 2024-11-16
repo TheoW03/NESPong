@@ -27,4 +27,22 @@ init_sprites:
             cpx #$08 
             bne load_paddle2
         rts
+
+go_ip:
+    ldx $0200
+    inx
+    stx $0200
+    ldx $0204
+    inx 
+    stx $0204
+    
+    
+    ldx $020c
+    inx
+    stx $020c
+    ldx $0210
+    inx 
+    stx $0210
+    rts
+     
 .include "./sprite_data.s"

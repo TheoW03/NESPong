@@ -67,6 +67,9 @@ reset:
         sta $2006
         lda #$00
         sta $2006
+
+        
+
         jsr init_sprites 
         cli
         lda #%10010000 ; vblank status
@@ -77,6 +80,17 @@ reset:
     loop:
         jmp loop
 nmi:
+    lda $00
+    cmp $0200
+    beq sprite_init
+    bne sprites_alr_init
+    sprite_init:
+        jsr init_sprites
+        jmp end
+    sprites_alr_init:
+        jsr go_ip
+        jmp end
+    end:
     lda #$02
     sta $4014
     rti   
