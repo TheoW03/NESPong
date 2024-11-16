@@ -81,6 +81,7 @@ reset:
 nmi:
     lda $00
     cmp $32
+    ; jmp end
     beq sprite_init
     bne sprites_alr_init
     sprite_init:
@@ -88,10 +89,13 @@ nmi:
         jsr init_sprites
         jmp end
     sprites_alr_init:
-        jsr init_input
-        jsr read_controllers
-        jsr read_inp
-        jsr read_ball
+        jsr init_input1
+        jsr init_input2
+        jsr read_controller1
+        jsr read_controller2
+        jsr handle_paddle1_controls
+        jsr handle_paddle2_controls
+        jsr update_ball
         jmp end
     end:
     lda #$02
@@ -100,6 +104,7 @@ nmi:
 
 .include "./load_sprites.s"
 .include "./read_controller.s"
+.include "./character_controller.s"
 ; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"
