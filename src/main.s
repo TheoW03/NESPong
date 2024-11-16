@@ -67,21 +67,7 @@ reset:
         sta $2006
         lda #$00
         sta $2006
-
-        load_pallete:
-            lda palletes,X 
-            sta $2007
-            inx 
-            cpx #$20
-            bne load_pallete
-
-        ldx #$00
-        load_sprites:
-            lda sprite_data, X
-            sta $0200, X
-            inx
-            cpx #$10
-            bne load_sprites
+        jsr init_sprites 
         cli
         lda #%10010000 ; vblank status
         sta $2000
@@ -95,6 +81,8 @@ nmi:
     sta $4014
     rti   
 
-.include "./sprite_data.s"
+.include "./load_sprites.s"
+
+; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
-.incbin  "rom.chr"
+.incbin  "sprites.chr"
