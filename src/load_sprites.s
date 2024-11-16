@@ -34,12 +34,30 @@ init_sprites:
         sta $32 ; verificationm this method works 
         rts
 
-update_ball:        
-        lda $0204
-        ; beq 
-        ldx $020b
-        inx
-        stx $020b
+update_ball:       
+        ; ldx #$00
+        ; stx $25
+
+        lda $25
+        cmp #$01
+        beq ball_left
+        bne ball_right
+        ball_right:
+            ldx $020b
+            inx
+            stx $020b
+            jmp end_of_ball_up
+        ball_left:
+            ldx $020b
+            dex
+            stx $020b
+            jmp end_of_ball_up
+        ; lda $0204
+        ; cmp 
+        ; ldx $020b
+        ; inx
+        ; stx $020b
+    end_of_ball_up:
         rts
 
 ; read_inp:

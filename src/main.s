@@ -81,20 +81,25 @@ reset:
 nmi:
     lda $00
     cmp $32
-    ; jmp end
     beq sprite_init
     bne sprites_alr_init
     sprite_init:
-        
         jsr init_sprites
         jmp end
     sprites_alr_init:
+        ; loads and gronds the input registers
         jsr init_input1
         jsr init_input2
+        
+        ; stores the input in $20 and $21   
         jsr read_controller1
         jsr read_controller2
+
+        ; applies this to the paddles
         jsr handle_paddle1_controls
         jsr handle_paddle2_controls
+        
+        ; update ball
         jsr update_ball
         jmp end
     end:
