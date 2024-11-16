@@ -80,7 +80,7 @@ reset:
         jmp loop
 nmi:
     lda $00
-    cmp $0200
+    cmp $32
     beq sprite_init
     bne sprites_alr_init
     sprite_init:
@@ -90,7 +90,8 @@ nmi:
     sprites_alr_init:
         jsr init_input
         jsr read_controllers
-        jsr go_ip
+        jsr read_inp
+        jsr read_ball
         jmp end
     end:
     lda #$02

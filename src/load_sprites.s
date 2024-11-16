@@ -29,9 +29,13 @@ init_sprites:
             inx
             cpx #$08 
             bne load_paddle2
+
+
+        lda #$01
+        sta $32 ; verificationm this method works 
         rts
 
-go_ip:
+read_inp:
     lda BUTTON_DOWN 
     and INPUT_REG
     cmp #00
@@ -74,6 +78,13 @@ go_ip:
     stx $0210
     end_of_this:
         rts
-     
+read_ball:
+        
+        lda $0204
+        ; beq 
+        ldx $020b
+        inx
+        stx $020b
+        rts
 
 .include "./sprite_data.s"
