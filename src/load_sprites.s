@@ -1,3 +1,6 @@
+.define BUTTON_UP #$08
+.define BUTTON_DOWN #$04
+.define INPUT_REG $20
 init_sprites:
         load_pallete:
             lda palletes,X 
@@ -29,20 +32,40 @@ init_sprites:
         rts
 
 go_ip:
-    lda #$20
-    ora $20
-    cmp #$20
+    lda BUTTON_DOWN 
+    and INPUT_REG
+    cmp #00
     sta $21
-    beq end_of_this
+    bne incr_x
+    lda #$00
+    lda BUTTON_UP 
+    and INPUT_REG
+    bne decr_x
+    jmp end_of_this
+
     incr_x:
         ldx $0200
         inx
+        inx 
         stx $0200
         ldx $0204
+        inx 
         inx 
         stx $0204
         rts
         jmp end_of_this
+    decr_x:
+        ldx $0200
+        dex
+        dex 
+        stx $0200
+        ldx $0204
+        dex 
+        dex 
+        stx $0204
+        rts
+        jmp end_of_this
+    
     ldx $020c
     inx
     stx $020c
