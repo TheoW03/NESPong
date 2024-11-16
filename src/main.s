@@ -67,7 +67,6 @@ reset:
         sta $2006
         lda #$00
         sta $2006
-
         
 
         jsr init_sprites 
@@ -85,9 +84,12 @@ nmi:
     beq sprite_init
     bne sprites_alr_init
     sprite_init:
+        
         jsr init_sprites
         jmp end
     sprites_alr_init:
+        jsr init_input
+        jsr read_controllers
         jsr go_ip
         jmp end
     end:
@@ -96,7 +98,8 @@ nmi:
     rti   
 
 .include "./load_sprites.s"
-
+.include "./read_controller.s"
 ; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"
+
