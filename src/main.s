@@ -85,4 +85,4 @@ nmi:
 
 ; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
-.incbin  "sprites.chr"
+.incbin  "./assets/sprites.chr"
