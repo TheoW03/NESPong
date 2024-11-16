@@ -29,20 +29,28 @@ init_sprites:
         rts
 
 go_ip:
-    ldx $0200
-    inx
-    stx $0200
-    ldx $0204
-    inx 
-    stx $0204
-    
-    
+    lda #$20
+    ora $20
+    cmp #$20
+    sta $21
+    beq end_of_this
+    incr_x:
+        ldx $0200
+        inx
+        stx $0200
+        ldx $0204
+        inx 
+        stx $0204
+        rts
+        jmp end_of_this
     ldx $020c
     inx
     stx $020c
     ldx $0210
     inx 
     stx $0210
-    rts
+    end_of_this:
+        rts
      
+
 .include "./sprite_data.s"
