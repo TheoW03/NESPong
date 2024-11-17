@@ -88,12 +88,9 @@ nmi:
         jmp end
     sprites_alr_init:
         ; loads and gronds the input registers
-        jsr init_input1
-        jsr init_input2
-        
-        ; stores the input in $20 and $21   
-        jsr read_controller1
-        jsr read_controller2
+        jsr init_input        
+        ; stores the input in $20 and $21  
+        jsr read_controller 
 
         ; applies this to the paddles
         jsr handle_paddle1_controls
