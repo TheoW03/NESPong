@@ -1,3 +1,5 @@
+# Pong NES
+
 ## Inspiration
 
 it all started the Fall semester 2023
