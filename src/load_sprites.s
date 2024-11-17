@@ -34,24 +34,46 @@ init_sprites:
         sta $32 ; verificationm this method works 
         rts
 
-update_ball:       
-        ; ldx #$00
-        ; stx $25
-
-        lda $25
-        cmp #$01
-        beq ball_left
-        bne ball_right
-        ball_right:
-            ldx $020b
-            inx
-            stx $020b
-            jmp end_of_ball_up
-        ball_left:
-            ldx $020b
-            dex
-            stx $020b
-            jmp end_of_ball_up
+update_ball:
+; cmp y  sub pixel     
+        lda $0200
+        cmp $0208
+        beq paddle1_collided
+; cmp y sub pixel
+        lda $0204
+        cmp $0208
+        beq paddle1_collided
+; cmp x  sub pixel     
+        lda $0203
+        cmp $020b
+        beq paddle1_collided
+; cmp x sub pixel
+        lda $0207
+        cmp $020b
+        beq paddle1_collided
+        ldx $00 
+        stx $25
+        jmp collison_code
+        ; cmp $ 
+        paddle1_collided:
+            ldx #$01
+            stx $25
+            jmp collison_code
+        collison_code:
+            lda $25
+            cmp #$01
+            bne ball_left
+            beq ball_right
+            ball_right:
+                ldx $020b
+                inx
+                stx $020b
+                jmp end_of_ball_up
+            ball_left:
+                ldx $020b
+                dex
+                stx $020b
+                jmp end_of_ball_up
         ; lda $0204
         ; cmp 
         ; ldx $020b
