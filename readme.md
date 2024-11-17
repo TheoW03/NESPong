@@ -21,8 +21,7 @@ or if you can burn this onto a NES cartridge go ahead
 
 https://fceux.com/web/download.html
 
-load 
+load the file
 
-./build/build.nes into fcuex 
+`` ./build/build.nes `` into FCUEX emulator
 
-and have fun
