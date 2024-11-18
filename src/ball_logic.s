@@ -2,7 +2,7 @@
 
 check_collisons:
 ; checks the upper y sub pxiel on paddle1
-    ; lda COLLISION_STATE_REG
+; lda COLLISION_STATE_REG
     lda $0200
     cmp $0208
 ; checks the bottom y sub pxiel on paddle1
@@ -13,30 +13,31 @@ check_collisons:
 ; if no collisons check paddle 2 collsions
     jmp paddle2_collides
     check_X_sub:
-; cmp x  sub pixel     
+; cmp x  upper sub pixel paddle1  
         lda $0203
         cmp $020b
         beq paddle1_collided
-; cmp x sub pixel
+; cmp x lower sub pixel paddle1
         lda $0207
         cmp $020b
         beq paddle1_collided
+
     paddle2_collides:
-; paddle2
+; cmp y upper sub pixel
         lda $020c
         cmp $0208
         beq check_X_sub2
-; cmp y sub pixel
+; cmp y lower sub pixel
         lda $0210
         cmp $0208
         beq check_X_sub2
         jmp end_of_collide
     check_X_sub2:
-; cmp x  sub pixel     
+; cmp upper x  sub pixel     
         lda $020f
         cmp $020b
         beq paddle2_collided
-; cmp x sub pixel
+; cmp lower x sub pixel
         lda $0213
         cmp $020b
         beq paddle2_collided
