@@ -36,13 +36,17 @@ init_sprites:
 
 update_ball:
 ; cmp y  sub pixel     
+; jmp collison_code
         lda $0200
         cmp $0208
-        beq paddle1_collided
+        beq check_X_sub
+
 ; cmp y sub pixel
         lda $0204
         cmp $0208
-        beq paddle1_collided
+        beq check_X_sub
+        jmp paddle2_collides
+        check_X_sub:
 ; cmp x  sub pixel     
         lda $0203
         cmp $020b
@@ -51,15 +55,41 @@ update_ball:
         lda $0207
         cmp $020b
         beq paddle1_collided
-        ldx $00 
-        stx $25
+paddle2_collides:
+; paddle2
+        lda $020c
+        cmp $0208
+        beq check_X_sub2
+; cmp y sub pixel
+        lda $0210
+        cmp $0208
+        beq check_X_sub2
+        check_X_sub2:
+; cmp x  sub pixel     
+        lda $020f
+        cmp $020b
+        beq padle2_colldied
+; cmp x sub pixel
+        lda $0213
+        cmp $020b
+        beq padle2_colldied
+
+        ; ldx $00 
+        ; stx $25
+        
         jmp collison_code
+        
         ; cmp $ 
         paddle1_collided:
             ldx #$01
             stx $25
             jmp collison_code
+        padle2_colldied:
+            ldx #$00
+            stx $25
         collison_code:
+            ; lda #$01
+            ; sta $25
             lda $25
             cmp #$01
             bne ball_left
