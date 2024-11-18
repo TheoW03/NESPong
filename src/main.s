@@ -14,6 +14,8 @@
     .addr reset ; reset vector
 .segment "STARTUP"
 .include "./util.s"
+.include "./util_macros.s"
+
 reset:
     sei
     cld
@@ -97,6 +99,7 @@ nmi:
         jsr handle_paddle2_controls
         
         ; update ball
+        jsr check_collisons
         jsr update_ball
         jmp end
     end:
@@ -107,6 +110,8 @@ nmi:
 .include "./load_sprites.s"
 .include "./read_controller.s"
 .include "./character_controller.s"
+.include "./ball_logic.s"
+
 ; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"

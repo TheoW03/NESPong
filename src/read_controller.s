@@ -2,7 +2,7 @@
 init_input:
     ; inits
     lda #1
-    sta $20
+    sta INPUT_REG1
 
     ; resets this is for input 1
     sta $4016
@@ -12,14 +12,12 @@ init_input:
     
     ; this resets the 2nd controller register
     lda #1
-    sta $21
+    sta INPUT_REG2
 
     ; resets this is for input 2
     sta $4017
     lda #0
     sta $4017
-
-
     rts
 
 
@@ -30,7 +28,7 @@ read_controller:
     read_loop1:
         lda $4016
         lsr a
-        rol $20
+        rol INPUT_REG1
         bcc read_loop1
     lda #0 
 
@@ -39,6 +37,6 @@ read_controller:
     read_loop2: 
         lda $4017
         lsr a
-        rol $21
+        rol INPUT_REG2
         bcc read_loop2
     rts

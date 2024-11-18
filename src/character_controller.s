@@ -1,8 +1,7 @@
-.define BUTTON_UP #$08
-.define BUTTON_DOWN #$04
-.define INPUT_REG1 $20
-.define INPUT_REG2 $21
-
+; .define BUTTON_UP #$08
+; .define BUTTON_DOWN #$04
+; .define INPUT_REG1 $20
+; .define INPUT_REG2 $21
 
 ; function designed to move the paddles
 
