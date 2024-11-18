@@ -20,25 +20,25 @@ handle_paddle1_controls:
     jmp end_of_this
     ; this runs the 1st paddle of $4016 
     incr_x:
-        ldx $0200
+        ldx PADDLE1_LOWER_SUBPIXEL_Y
         inx
         inx 
-        stx $0200
-        ldx $0204
+        stx PADDLE1_LOWER_SUBPIXEL_Y
+        ldx PADDLE1_UPPER_SUBPIXEL_Y
         inx 
         inx 
-        stx $0204
+        stx PADDLE1_UPPER_SUBPIXEL_Y
         rts
         jmp end_of_this
     decr_x:
-        ldx $0200
+        ldx PADDLE1_UPPER_SUBPIXEL_Y
         dex
         dex 
-        stx $0200
-        ldx $0204
+        stx PADDLE1_UPPER_SUBPIXEL_Y
+        ldx PADDLE1_LOWER_SUBPIXEL_Y
         dex 
         dex 
-        stx $0204
+        stx PADDLE1_LOWER_SUBPIXEL_Y
         rts
         jmp end_of_this
     
@@ -67,24 +67,24 @@ handle_paddle2_controls:
     bne decr_x2
     jmp end_of_2
     incr_x2:
-        ldx $020c
+        ldx PADDLE2_UPPER_SUBPIXEL_Y
         inx
         inx
-        stx $020c
-        ldx $0210
+        stx PADDLE2_UPPER_SUBPIXEL_Y
+        ldx PADDLE2_LOWER_SUBPIXEL_Y
         inx 
         inx
-        stx $0210
+        stx PADDLE2_LOWER_SUBPIXEL_Y
         jmp end_of_2
     decr_x2:
-        ldx $020c
+        ldx PADDLE2_UPPER_SUBPIXEL_Y
         dex
         dex
-        stx $020c
-        ldx $0210
+        stx PADDLE2_UPPER_SUBPIXEL_Y
+        ldx PADDLE2_LOWER_SUBPIXEL_Y
         dex
         dex 
-        stx $0210
+        stx PADDLE2_LOWER_SUBPIXEL_Y
         jmp end_of_2
     end_of_2:
         rts
