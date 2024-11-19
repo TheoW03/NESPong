@@ -54,6 +54,8 @@ reset:
         inx 
         cpx #$00
         bne clear_mem
+        lda #255
+        sta $25
         jsr wait_for_vblank
         ; vblank_loop2:
         ;     bit $2002
@@ -68,14 +70,13 @@ reset:
         sta $2006
         lda #$00
         sta $2006
-        
-
-        jsr init_sprites 
+        jsr init_sprites
         cli
         lda #%10010000 ; vblank status
         sta $2000
         lda #%00011110 ; vblank status
         sta $2001
+        
 
     loop:
         jmp loop
@@ -85,6 +86,7 @@ nmi:
     beq sprite_init
     bne sprites_alr_init
     sprite_init:
+        
         jsr init_sprites
         jmp end
     sprites_alr_init:

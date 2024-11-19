@@ -33,12 +33,11 @@ handle_paddle1_controls:
     decr_x:
         clc
         lda PADDLE1_UPPER_SUBPIXEL_Y 
-        sbc #$02      
+        sbc #$02 
         sta PADDLE1_UPPER_SUBPIXEL_Y
-        
         lda PADDLE1_LOWER_SUBPIXEL_Y
         clc
-        sbc #$02
+        sbc #$02 
         sta PADDLE1_LOWER_SUBPIXEL_Y
     end_of_this:
         rts
@@ -61,34 +60,19 @@ handle_paddle2_controls:
         lda PADDLE2_UPPER_SUBPIXEL_Y
         adc #$02
         sta PADDLE2_UPPER_SUBPIXEL_Y
-        ; ldx PADDLE2_UPPER_SUBPIXEL_Y
-        ; inx
-        ; inx
-        ; stx PADDLE2_UPPER_SUBPIXEL_Y
         lda PADDLE2_LOWER_SUBPIXEL_Y
         clc
         adc #$02
         sta PADDLE2_LOWER_SUBPIXEL_Y
-       
-       
-        ; ldx PADDLE2_LOWER_SUBPIXEL_Y
-        ; inx 
-        ; inx
-        ; stx PADDLE2_LOWER_SUBPIXEL_Y
         jmp end_of_2
     decr_x2:
         clc
         lda PADDLE2_LOWER_SUBPIXEL_Y
         sbc #$02
-        ; dex
-        ; dex
         sta PADDLE2_LOWER_SUBPIXEL_Y
         clc
         lda PADDLE2_UPPER_SUBPIXEL_Y
-        ; clc
         sbc #$02
-        ; dex
-        ; dex 
         sta PADDLE2_UPPER_SUBPIXEL_Y
     end_of_2:
         rts

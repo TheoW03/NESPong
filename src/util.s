@@ -13,6 +13,7 @@
 
 ; this is the satte for collisons
 .define COLLISION_STATE_REG $25
+.define RANDOM $22
 
 ;essental memory addresses for sprites
 
@@ -37,4 +38,8 @@ wait_for_vblank:
     vblank_loop:
         bit $2002
         bpl vblank_loop
+    rts
+random_num:
+    lda #32
+    sta RANDOM
     rts

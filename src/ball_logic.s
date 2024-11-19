@@ -46,25 +46,15 @@ check_collisons:
         stx COLLISION_STATE_REG
         jmp end_of_collide
     paddle2_collided:
-        ldx #$00
+        ldx #255
         stx COLLISION_STATE_REG
     end_of_collide:
         rts
 
 ; updates the ball depending on the state located in $25
 update_ball:  
-      lda COLLISION_STATE_REG
-      cmp #$01
-      bne ball_left ; goes ball right if equal
-      ball_right:
-          ldx BALL_X
-          inx
-          stx BALL_X
-          jmp end_of_ball_up
-      ball_left:
-          ldx BALL_X
-          dex
-          stx BALL_X
-      end_of_ball_up:
-          rts
-
+      lda BALL_X
+      clc
+      adc COLLISION_STATE_REG
+      sta BALL_X
+      rts
