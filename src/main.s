@@ -14,7 +14,6 @@
     .addr reset ; reset vector
 .segment "STARTUP"
 .include "./util.s"
-.include "./util_macros.s"
 
 reset:
     sei
