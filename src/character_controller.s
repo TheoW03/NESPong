@@ -20,37 +20,26 @@ handle_paddle1_controls:
     jmp end_of_this
     ; this runs the 1st paddle of $4016 
     incr_x:
-        ldx PADDLE1_LOWER_SUBPIXEL_Y
-        inx
-        inx 
-        stx PADDLE1_LOWER_SUBPIXEL_Y
-        ldx PADDLE1_UPPER_SUBPIXEL_Y
-        inx 
-        inx 
-        stx PADDLE1_UPPER_SUBPIXEL_Y
-        rts
+        clc
+        lda PADDLE1_LOWER_SUBPIXEL_Y
+        adc #$02
+        sta PADDLE1_LOWER_SUBPIXEL_Y
+
+        lda PADDLE1_UPPER_SUBPIXEL_Y
+        clc
+        adc #$02 
+        sta PADDLE1_UPPER_SUBPIXEL_Y
         jmp end_of_this
     decr_x:
-        ldx PADDLE1_UPPER_SUBPIXEL_Y
-        dex
-        dex 
-        stx PADDLE1_UPPER_SUBPIXEL_Y
-        ldx PADDLE1_LOWER_SUBPIXEL_Y
-        dex 
-        dex 
-        stx PADDLE1_LOWER_SUBPIXEL_Y
-        rts
-        jmp end_of_this
-    
-
-    ;  this handles the 2nd paddle
-
-    ; ldx $020c
-    ; inx
-    ; stx $020c
-    ; ldx $0210
-    ; inx 
-    ; stx $0210
+        clc
+        lda PADDLE1_UPPER_SUBPIXEL_Y 
+        sbc #$02      
+        sta PADDLE1_UPPER_SUBPIXEL_Y
+        
+        lda PADDLE1_LOWER_SUBPIXEL_Y
+        clc
+        sbc #$02
+        sta PADDLE1_LOWER_SUBPIXEL_Y
     end_of_this:
         rts
 
@@ -66,25 +55,40 @@ handle_paddle2_controls:
     and INPUT_REG2
     bne decr_x2
     jmp end_of_2
+    
     incr_x2:
-        ldx PADDLE2_UPPER_SUBPIXEL_Y
-        inx
-        inx
-        stx PADDLE2_UPPER_SUBPIXEL_Y
-        ldx PADDLE2_LOWER_SUBPIXEL_Y
-        inx 
-        inx
-        stx PADDLE2_LOWER_SUBPIXEL_Y
+        clc
+        lda PADDLE2_UPPER_SUBPIXEL_Y
+        adc #$02
+        sta PADDLE2_UPPER_SUBPIXEL_Y
+        ; ldx PADDLE2_UPPER_SUBPIXEL_Y
+        ; inx
+        ; inx
+        ; stx PADDLE2_UPPER_SUBPIXEL_Y
+        lda PADDLE2_LOWER_SUBPIXEL_Y
+        clc
+        adc #$02
+        sta PADDLE2_LOWER_SUBPIXEL_Y
+       
+       
+        ; ldx PADDLE2_LOWER_SUBPIXEL_Y
+        ; inx 
+        ; inx
+        ; stx PADDLE2_LOWER_SUBPIXEL_Y
         jmp end_of_2
     decr_x2:
-        ldx PADDLE2_UPPER_SUBPIXEL_Y
-        dex
-        dex
-        stx PADDLE2_UPPER_SUBPIXEL_Y
-        ldx PADDLE2_LOWER_SUBPIXEL_Y
-        dex
-        dex 
-        stx PADDLE2_LOWER_SUBPIXEL_Y
-        jmp end_of_2
+        clc
+        lda PADDLE2_LOWER_SUBPIXEL_Y
+        sbc #$02
+        ; dex
+        ; dex
+        sta PADDLE2_LOWER_SUBPIXEL_Y
+        clc
+        lda PADDLE2_UPPER_SUBPIXEL_Y
+        ; clc
+        sbc #$02
+        ; dex
+        ; dex 
+        sta PADDLE2_UPPER_SUBPIXEL_Y
     end_of_2:
         rts

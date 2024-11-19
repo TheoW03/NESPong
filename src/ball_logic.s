@@ -1,5 +1,4 @@
 
-
 check_collisons:
 ; checks the upper y sub pxiel on paddle1
 ; lda COLLISION_STATE_REG
