@@ -13,13 +13,15 @@ check_collisons:
     
     lda PADDLE1_UPPER_SUBPIXEL_Y
     clc 
-    adc #01
+
+    ; consider <= skulling
+    adc #04
     cmp BALL_Y
     beq check_X_sub
 
     lda PADDLE1_UPPER_SUBPIXEL_Y
     clc
-    adc #02
+    adc #08
     cmp BALL_Y
     beq check_X_sub
     
@@ -28,14 +30,14 @@ check_collisons:
 
     lda PADDLE1_LOWER_SUBPIXEL_Y
     clc 
-    sbc #01
+    sbc #04
     cmp BALL_Y
     beq check_X_sub
     
     
     lda PADDLE1_LOWER_SUBPIXEL_Y
     clc 
-    sbc #02
+    sbc #08
     cmp BALL_Y
     beq check_X_sub
 
