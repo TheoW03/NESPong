@@ -14,7 +14,6 @@
     .addr reset ; reset vector
 .segment "STARTUP"
 .include "./util.s"
-
 reset:
     sei
     cld
@@ -102,18 +101,27 @@ nmi:
         ; update ball
         jsr check_collisons
         jsr update_ball
-        jmp end
-    end:
-    lda #$02
-    sta $4014
-    rti   
+        lda #0
+        cmp DIVI_2
+        beq is_even
+        bne isNotEven
+        is_even:
+            lda #1
+            sta DIVI_2
+            jmp end
+        isNotEven:
+            lda #0
+            sta DIVI_2
+        end:
+            lda #$02
+            sta $4014
+            rti   
 
 .include "./load_sprites.s"
 .include "./read_controller.s"
 .include "./character_controller.s"
 .include "./ball_logic.s"
 
-; .include "./sprite_data.s"
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"
 

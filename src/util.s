@@ -15,6 +15,10 @@
 .define COLLISION_STATE_REG $25
 .define RANDOM $22
 
+.define BALL_VELOCITY_X $25
+.define BALL_VELOCITY_Y $26
+
+.define DIVI_2 $27
 ;essental memory addresses for sprites
 
 .define PADDLE1_UPPER_SUBPIXEL_X $0203

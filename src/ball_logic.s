@@ -2,14 +2,43 @@
 check_collisons:
 ; checks the upper y sub pxiel on paddle1
 ; lda COLLISION_STATE_REG
+
+; checks the upper y sub pxiel on paddle1
+
     lda PADDLE1_UPPER_SUBPIXEL_Y
     cmp BALL_Y
-; checks the bottom y sub pxiel on paddle1
+
     beq check_X_sub
-    lda PADDLE1_LOWER_SUBPIXEL_Y
+; checks the bottom y sub pxiel on paddle1  + 1
+    
+    lda PADDLE1_UPPER_SUBPIXEL_Y
+    clc 
+    adc #01
     cmp BALL_Y
     beq check_X_sub
-; if no collisons check paddle 2 collsions
+
+    lda PADDLE1_UPPER_SUBPIXEL_Y
+    clc
+    adc #02
+    cmp BALL_Y
+    beq check_X_sub
+    
+    lda PADDLE1_LOWER_SUBPIXEL_Y
+    cmp BALL_Y
+
+    lda PADDLE1_LOWER_SUBPIXEL_Y
+    clc 
+    sbc #01
+    cmp BALL_Y
+    beq check_X_sub
+    
+    
+    lda PADDLE1_LOWER_SUBPIXEL_Y
+    clc 
+    sbc #02
+    cmp BALL_Y
+    beq check_X_sub
+
     jmp paddle2_collides
     check_X_sub:
 ; cmp x  upper sub pixel paddle1  
@@ -42,10 +71,16 @@ check_collisons:
         beq paddle2_collided
         jmp end_of_collide
     paddle1_collided:
+        lda #255
+        sta BALL_VELOCITY_Y
+        ; lda BALL_VELOCITY_Y 
+        ;  #$01
         ldx #$01
         stx COLLISION_STATE_REG
         jmp end_of_collide
     paddle2_collided:
+        lda #1
+        sta BALL_VELOCITY_Y
         ldx #255
         stx COLLISION_STATE_REG
     end_of_collide:
@@ -55,6 +90,19 @@ check_collisons:
 update_ball:  
       lda BALL_X
       clc
-      adc COLLISION_STATE_REG
+      adc BALL_VELOCITY_X
       sta BALL_X
+
+      lda #0
+      cmp DIVI_2
+      beq incr_Y_vel
       rts
+      incr_Y_vel:
+        clc
+        lda BALL_Y
+        adc BALL_VELOCITY_Y
+        sta BALL_Y
+        rts
+    
+
+      
