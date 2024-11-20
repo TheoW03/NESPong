@@ -43,6 +43,7 @@ wait_for_vblank:
         bit $2002
         bpl vblank_loop
     rts
+
 random_num:
     lda #32
     sta RANDOM

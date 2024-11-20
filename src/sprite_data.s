@@ -13,13 +13,13 @@ paddle1:
 ;||+------ Priority (0: in front of background; 1: behind background)
 ;|+------- Flip sprite horizontally
 ;+-------- Flip sprite vertically
-    .byte $40, $00, $00, $00 ; this spawns a mushroom
-	.byte $48, $10, $00, $00
+    .byte $40, $00, $00, $20 ; this spawns a mushroom
+	.byte $48, $10, $00, $20
 
 	ball:
 	; this spawns the balll
-   	 .byte $40, $01, $00, $20 ; this spawns a mushroom
+   	 .byte $40, $01, $00, $70 ; this spawns a mushroom
 
 paddle2:
- 	.byte $40, $00, $00, $50 ; this spawns a mushroom
-	.byte $48, $10, $00, $50
+ 	.byte $40, $00, $00, $a0 ; this spawns a mushroom
+	.byte $48, $10, $00, $a0

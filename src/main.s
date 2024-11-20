@@ -24,22 +24,21 @@ reset:
     stx $4017
     ldx #$00
     stx $4010
-    ldx #%00000011
+
+    ldx #%00000011 ; enables the sound
     stx $4015
+
     ; init stack
     ldx #$FF
-    TXS
+    txs
 
     ; clear PPU registers
-    LDX $00
-    STX $2000
-    STX $2001
+    ldx $00
+    stx $2000
+    stx $2001
 
     ;wait for vblank
     jsr wait_for_vblank
-    ; vblank_loop:
-    ;     bit $2002
-    ;     bpl vblank_loop
     txa
     clear_mem:
         sta $0000, X
@@ -65,16 +64,8 @@ reset:
         lda #$02
         sta $4014
         nop
-        jsr play_startup
-        ; lda #%10011111
-        ; sta $4001
+        jsr play_startup 
 
-        ; lda #%11111101
-        ; sta $4002
-
-        ; lda #%11111000
-        ; sta $4003
-        ; store 3f00 in ppu
         lda #$3f
         sta $2006
         lda #$00

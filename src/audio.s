@@ -1,5 +1,6 @@
 ; https://irkenkitties.com/blog/2015/03/29/creating-sound-on-the-nes/
 
+; this audio plays when hit
 play_hitsound:
     lda #%10011111
     sta $4001
@@ -10,6 +11,8 @@ play_hitsound:
     lda #%11111000
     sta $4003
     rts
+
+; start up soind
 play_startup:
     lda #%10011001
     sta $4001

@@ -73,19 +73,10 @@ check_collisons:
     paddle1_collided:
         lda #255
         sta BALL_VELOCITY_Y
-        ; lda BALL_VELOCITY_Y 
-        ;  #$01
+        
         ldx #$01
         jsr play_hitsound
 
-        ; lda #%10011111
-        ; sta $4001
-
-        ; lda #%11111101
-        ; sta $4002
-
-        ; lda #%11111000
-        ; sta $4003
         stx COLLISION_STATE_REG
         jmp end_of_collide
     paddle2_collided:
