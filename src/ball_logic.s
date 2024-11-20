@@ -118,10 +118,10 @@ update_ball:
       beq incr_Y_vel
       rts
       incr_Y_vel:
-        ; clc
-        ; lda BALL_Y
-        ; adc BALL_VELOCITY_Y
-        ; sta BALL_Y
+        clc
+        lda BALL_Y
+        adc BALL_VELOCITY_Y
+        sta BALL_Y
         rts
     
 
