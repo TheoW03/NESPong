@@ -93,15 +93,6 @@ check_collisons:
         sta BALL_VELOCITY_Y
         ldx #255
         jsr play_hitsound
-
-        ; lda #%10011111
-        ; sta $4001
-
-        ; lda #%11111101
-        ; sta $4002
-
-        ; lda #%11111000
-        ; sta $4003
         stx COLLISION_STATE_REG
     end_of_collide:
         rts

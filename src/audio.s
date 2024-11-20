@@ -1,3 +1,5 @@
+; https://irkenkitties.com/blog/2015/03/29/creating-sound-on-the-nes/
+
 play_hitsound:
     lda #%10011111
     sta $4001

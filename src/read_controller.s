@@ -1,4 +1,4 @@
-
+; https://www.youtube.com/watch?v=nAStgQzPrAQ&t=1s&ab_channel=NesHacker
 init_input:
     ; inits
     lda #1
