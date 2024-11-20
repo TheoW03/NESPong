@@ -1,0 +1,20 @@
+play_hitsound:
+    lda #%10011111
+    sta $4001
+
+    lda #%11111101
+    sta $4002
+
+    lda #%11111000
+    sta $4003
+    rts
+play_startup:
+    lda #%10011001
+    sta $4001
+
+    lda #%11111001
+    sta $4002
+
+    lda #%11101010
+    sta $4003
+    rts

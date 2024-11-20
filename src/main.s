@@ -20,10 +20,12 @@ reset:
 
     ; reset sound
     ldx #%10000000
+
     stx $4017
     ldx #$00
     stx $4010
-
+    ldx #%00000011
+    stx $4015
     ; init stack
     ldx #$FF
     TXS
@@ -63,12 +65,21 @@ reset:
         lda #$02
         sta $4014
         nop
+        jsr play_startup
+        ; lda #%10011111
+        ; sta $4001
 
+        ; lda #%11111101
+        ; sta $4002
+
+        ; lda #%11111000
+        ; sta $4003
         ; store 3f00 in ppu
         lda #$3f
         sta $2006
         lda #$00
         sta $2006
+        
         jsr init_sprites
         cli
         lda #%10010000 ; vblank status
@@ -89,6 +100,7 @@ nmi:
         jsr init_sprites
         jmp end
     sprites_alr_init:
+        
         ; loads and gronds the input registers
         jsr init_input        
         ; stores the input in $20 and $21  
@@ -121,6 +133,7 @@ nmi:
 .include "./read_controller.s"
 .include "./character_controller.s"
 .include "./ball_logic.s"
+.include "./audio.s"
 
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"

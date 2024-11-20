@@ -76,12 +76,32 @@ check_collisons:
         ; lda BALL_VELOCITY_Y 
         ;  #$01
         ldx #$01
+        jsr play_hitsound
+
+        ; lda #%10011111
+        ; sta $4001
+
+        ; lda #%11111101
+        ; sta $4002
+
+        ; lda #%11111000
+        ; sta $4003
         stx COLLISION_STATE_REG
         jmp end_of_collide
     paddle2_collided:
         lda #1
         sta BALL_VELOCITY_Y
         ldx #255
+        jsr play_hitsound
+
+        ; lda #%10011111
+        ; sta $4001
+
+        ; lda #%11111101
+        ; sta $4002
+
+        ; lda #%11111000
+        ; sta $4003
         stx COLLISION_STATE_REG
     end_of_collide:
         rts
@@ -98,10 +118,10 @@ update_ball:
       beq incr_Y_vel
       rts
       incr_Y_vel:
-        clc
-        lda BALL_Y
-        adc BALL_VELOCITY_Y
-        sta BALL_Y
+        ; clc
+        ; lda BALL_Y
+        ; adc BALL_VELOCITY_Y
+        ; sta BALL_Y
         rts
     
 
