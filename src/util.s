@@ -20,6 +20,7 @@
 .define BALL_VELOCITY_Y $26
 .define UI_STATE $30
 .define DIVI_2 $27
+.define SELECT_RESET $28
 ;essental memory addresses for sprites
 
 .define PADDLE1_UPPER_SUBPIXEL_X $0203

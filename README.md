@@ -1,5 +1,7 @@
 # Pong NES
 
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 pong that can run on the NES  
 
 ## Build Instrcutions
@@ -19,18 +21,28 @@ mkdir -p build # this is OS specific. but create a directory called build
 cl65  --target nes ./src/main.s -o ./build/build.nes
 
 ```
+the final rom file is
 
-## how to run
+``./build/build.nes``
+
+
+## Run Instructions
 
 assuming you dont have a NES on hand. your going to need an emulator
 
-i reccomend the FCUEX emulator
+I recomend the FCUEX emulator
 
 download it here
 
 https://fceux.com/web/download.html
 
-and load the file
 
-`` ./build/build.nes `` into FCUEX emulator
+## Controls
 
+D-pad-up: moves either paddle 1 or paddle 2 up
+
+D-Pad-Down: moves either paddle 1 or paddle 2 down
+
+select: in game play state it pauses the game
+
+start: in main menu state it either starts the game or 

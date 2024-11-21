@@ -13,30 +13,26 @@ start_screen_wait:
         rts
 
 pause_game:
-    lda INPUT_REG1
-    cmp #00
-    beq end_of_pause
     lda SELECT 
     and INPUT_REG1
     cmp #00
     bne pause_state
-     jmp end_of_pause
+    beq check_unpause
     pause_state:
-        lda UI_STATE
-        cmp #2
-        beq unpause
-        
-        lda UI_STATE
-        cmp #1
-        beq pause
-        pause:
-            lda #2
-            sta UI_STATE
-            rts
-        unpause:
-            lda #1
-            sta UI_STATE
-            rts
-    end_of_pause:
+        lda #02
+        sta UI_STATE
         rts
+    check_unpause:
+        lda START_BUTTON 
+        and INPUT_REG1
+        cmp #00
+        bne unpause_state
+        rts
+        unpause_state:
+            lda #01
+            sta UI_STATE
+            rts
+    
+
+    
 
