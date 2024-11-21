@@ -102,46 +102,57 @@ nmi:
         cmp $32
         beq sprite_init
         bne sprites_alr_init
+
         sprite_init:
             jsr init_pallets
             jsr init_sprites
+            
             jmp end
         sprites_alr_init:
-        
+            
+           
             ; loads and gronds the input registers
-            jsr init_input        
             ; stores the input in $20 and $21  
+            jsr init_input
             jsr read_controller 
+            jsr pause_game
 
-            ; applies this to the paddles
-            jsr handle_paddle1_controls
-            jsr handle_paddle2_controls
+            lda UI_STATE
+            cmp #2
+            bne play_game
+            jmp end
+            play_game:
+                jsr init_input
+                jsr read_controller 
+                ; applies this to the paddles
+                jsr handle_paddle1_controls
+                jsr handle_paddle2_controls
         
-            ; update ball
-            jsr check_collisons
-            jsr update_ball
-            lda #0
-            cmp DIVI_2
-            beq is_even
-            bne isNotEven
-            is_even:
-                lda #1
-                sta DIVI_2
-                jmp end
-            isNotEven:
+                ; update ball
+                jsr check_collisons
+                jsr update_ball
                 lda #0
-                sta DIVI_2
-            end:
-                lda #$02
-                sta $4014
-                rti   
+                cmp DIVI_2
+                beq is_even
+                bne isNotEven
+                is_even:
+                    lda #1
+                    sta DIVI_2
+                    jmp end
+                isNotEven:
+                    lda #0
+                    sta DIVI_2
+                end:
+                    lda #$02
+                    sta $4014
+                    rti   
 
 .include "./load_sprites.s"
 .include "./read_controller.s"
 .include "./character_controller.s"
 .include "./ball_logic.s"
 .include "./audio.s"
-.include "./start_screen.s"
+.include "./menus.s"
 
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"

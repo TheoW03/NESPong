@@ -5,6 +5,7 @@
 .define BUTTON_UP #$08 
 .define BUTTON_DOWN #$04
 .define START_BUTTON #$10
+.define SELECT   #$20
 
 ; memeory addresses of were input is stored 
 ; 20 is controller 1
