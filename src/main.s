@@ -131,6 +131,7 @@ nmi:
                 ; update ball
                 jsr check_collisons
                 jsr update_ball
+                jsr check_point
                 lda #0
                 cmp DIVI_2
                 beq is_even

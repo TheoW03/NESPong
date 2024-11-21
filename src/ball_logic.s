@@ -6,42 +6,55 @@ check_collisons:
 ; checks the upper y sub pxiel on paddle1
 
     lda PADDLE1_UPPER_SUBPIXEL_Y
+
     cmp BALL_Y
 
+    bcc check_upper_pixel
     beq check_X_sub
+    jmp paddle2_collides
+    check_upper_pixel:
+        lda PADDLE1_LOWER_SUBPIXEL_Y
+        cmp BALL_Y
+        bpl check_X_sub
+        lda PADDLE1_LOWER_SUBPIXEL_Y
+        cmp BALL_Y
+        beq check_X_sub
+        jmp paddle2_collides
+        
+
 ; checks the bottom y sub pxiel on paddle1  + 1
     
-    lda PADDLE1_UPPER_SUBPIXEL_Y
-    clc 
+    ; lda PADDLE1_UPPER_SUBPIXEL_Y
+    ; clc 
 
-    ; consider <= skulling
-    adc #04
-    cmp BALL_Y
-    beq check_X_sub
+    ; ; consider <= skulling
+    ; adc #04
+    ; cmp BALL_Y
+    ; beq check_X_sub
 
-    lda PADDLE1_UPPER_SUBPIXEL_Y
-    clc
-    adc #08
-    cmp BALL_Y
-    beq check_X_sub
+    ; lda PADDLE1_UPPER_SUBPIXEL_Y
+    ; clc
+    ; adc #08
+    ; cmp BALL_Y
+    ; beq check_X_sub
     
-    lda PADDLE1_LOWER_SUBPIXEL_Y
-    cmp BALL_Y
+    ; lda PADDLE1_LOWER_SUBPIXEL_Y
+    ; cmp BALL_Y
 
-    lda PADDLE1_LOWER_SUBPIXEL_Y
-    clc 
-    sbc #04
-    cmp BALL_Y
-    beq check_X_sub
+    ; lda PADDLE1_LOWER_SUBPIXEL_Y
+    ; clc 
+    ; sbc #04
+    ; cmp BALL_Y
+    ; beq check_X_sub
     
     
-    lda PADDLE1_LOWER_SUBPIXEL_Y
-    clc 
-    sbc #08
-    cmp BALL_Y
-    beq check_X_sub
+    ; lda PADDLE1_LOWER_SUBPIXEL_Y
+    ; clc 
+    ; sbc #08
+    ; cmp BALL_Y
+    ; beq check_X_sub
 
-    jmp paddle2_collides
+
     check_X_sub:
 ; cmp x  upper sub pixel paddle1  
         lda PADDLE1_UPPER_SUBPIXEL_X
@@ -53,14 +66,18 @@ check_collisons:
         beq paddle1_collided
 
     paddle2_collides:
-; cmp y upper sub pixel
         lda PADDLE2_UPPER_SUBPIXEL_Y
         cmp BALL_Y
+        bcs check_X_sub2
         beq check_X_sub2
-; cmp y lower sub pixel
-        lda PADDLE2_LOWER_SUBPIXEL_Y
-        cmp BALL_Y
-        beq check_X_sub2
+; ; cmp y upper sub pixel
+;         lda PADDLE2_UPPER_SUBPIXEL_Y
+;         cmp BALL_Y
+;         beq check_X_sub2
+; ; cmp y lower sub pixel
+;         lda PADDLE2_LOWER_SUBPIXEL_Y
+;         cmp BALL_Y
+;         beq check_X_sub2
         jmp end_of_collide
     check_X_sub2:
 ; cmp upper x  sub pixel     
@@ -73,8 +90,8 @@ check_collisons:
         beq paddle2_collided
         jmp end_of_collide
     paddle1_collided:
-        lda #255
-        sta BALL_VELOCITY_Y
+        ; lda #255
+        ; sta BALL_VELOCITY_Y
         
         ldx #$01
         jsr play_hitsound
@@ -109,4 +126,36 @@ update_ball:
         rts
     
 
-      
+check_point:
+    rts
+    lda PADDLE1_LOWER_SUBPIXEL_X
+    clc
+    adc #255
+    ldx #00
+    cmp BALL_X
+    bpl player1_point
+    jmp check_player2_point
+    ; rts
+    player1_point:
+        inc SCORE_1
+        lda #00
+        sta $32
+        ; inc
+        ; sta SCORE_1
+        rts
+    check_player2_point:
+        lda BALL_X
+        cmp PADDLE2_UPPER_SUBPIXEL_X
+        bpl player2_point
+        rts
+        player2_point:
+            inc SCORE_2
+            lda #00
+            sta $32
+            ; inc
+            ; sta SCORE_2
+            rts
+
+    
+    
+

@@ -40,6 +40,11 @@
 .define BALL_Y $0208
 
 
+
+.define SCORE_1 $38
+.define SCORE_2 $39
+
+
 wait_for_vblank:
     vblank_loop:
         bit $2002
