@@ -70,8 +70,10 @@ reset:
         sta $2006
         lda #$00
         sta $2006
-        
-        jsr init_sprites
+        jsr init_pallets
+        ; jsr init_sprites
+        ldx #00
+        stx UI_STATE
         cli
         lda #%10010000 ; vblank status
         sta $2000
@@ -82,49 +84,64 @@ reset:
     loop:
         jmp loop
 nmi:
-    lda $00
-    cmp $32
-    beq sprite_init
-    bne sprites_alr_init
-    sprite_init:
-        
-        jsr init_sprites
-        jmp end
-    sprites_alr_init:
-        
+    lda #0
+    cmp UI_STATE
+    beq start_screen
+    bne game_play
+    jmp end
+    start_screen:
+        jsr init_pallets
         ; loads and gronds the input registers
         jsr init_input        
         ; stores the input in $20 and $21  
         jsr read_controller 
-
-        ; applies this to the paddles
-        jsr handle_paddle1_controls
-        jsr handle_paddle2_controls
-        
-        ; update ball
-        jsr check_collisons
-        jsr update_ball
-        lda #0
-        cmp DIVI_2
-        beq is_even
-        bne isNotEven
-        is_even:
-            lda #1
-            sta DIVI_2
+        jsr start_screen_wait
+        jmp end
+    game_play:
+        lda $00
+        cmp $32
+        beq sprite_init
+        bne sprites_alr_init
+        sprite_init:
+            jsr init_pallets
+            jsr init_sprites
             jmp end
-        isNotEven:
+        sprites_alr_init:
+        
+            ; loads and gronds the input registers
+            jsr init_input        
+            ; stores the input in $20 and $21  
+            jsr read_controller 
+
+            ; applies this to the paddles
+            jsr handle_paddle1_controls
+            jsr handle_paddle2_controls
+        
+            ; update ball
+            jsr check_collisons
+            jsr update_ball
             lda #0
-            sta DIVI_2
-        end:
-            lda #$02
-            sta $4014
-            rti   
+            cmp DIVI_2
+            beq is_even
+            bne isNotEven
+            is_even:
+                lda #1
+                sta DIVI_2
+                jmp end
+            isNotEven:
+                lda #0
+                sta DIVI_2
+            end:
+                lda #$02
+                sta $4014
+                rti   
 
 .include "./load_sprites.s"
 .include "./read_controller.s"
 .include "./character_controller.s"
 .include "./ball_logic.s"
 .include "./audio.s"
+.include "./start_screen.s"
 
 .segment "CHARS" ; for graphics
 .incbin  "./assets/sprites.chr"

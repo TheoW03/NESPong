@@ -1,15 +1,19 @@
 ; .define BUTTON_UP #$08
 ; .define BUTTON_DOWN #$04
 ; .define INPUT_REG $20
-init_sprites:
-        load_pallete:
+
+init_pallets:
+    load_pallete:
             lda palletes,X 
             sta $2007
             inx 
             cpx #$20
             bne load_pallete
-            lda #$00
-            ldx #$00
+        lda #$00
+        ldx #$00
+        rts
+init_sprites:
+        
         load_paddle1:
             lda paddle1, X
             sta $0200, X

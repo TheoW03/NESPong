@@ -4,6 +4,7 @@
 ; NES button states in hexa descimal they are the ones I need exactly
 .define BUTTON_UP #$08 
 .define BUTTON_DOWN #$04
+.define START_BUTTON #$10
 
 ; memeory addresses of were input is stored 
 ; 20 is controller 1
@@ -13,11 +14,10 @@
 
 ; this is the satte for collisons
 .define COLLISION_STATE_REG $25
-.define RANDOM $22
 
 .define BALL_VELOCITY_X $25
 .define BALL_VELOCITY_Y $26
-
+.define UI_STATE $30
 .define DIVI_2 $27
 ;essental memory addresses for sprites
 
@@ -44,7 +44,7 @@ wait_for_vblank:
         bpl vblank_loop
     rts
 
-random_num:
-    lda #32
-    sta RANDOM
-    rts
+; random_num:
+;     lda #32
+;     sta RANDOM
+;     rts
