@@ -132,6 +132,7 @@ nmi:
                 jsr check_collisons
                 jsr update_ball
                 jsr check_point
+                jsr court_bounds
                 lda #0
                 cmp DIVI_2
                 beq is_even

@@ -71,13 +71,13 @@ check_collisons:
         bcs check_X_sub2
         beq check_X_sub2
 ; ; cmp y upper sub pixel
-;         lda PADDLE2_UPPER_SUBPIXEL_Y
-;         cmp BALL_Y
-;         beq check_X_sub2
+        lda PADDLE2_UPPER_SUBPIXEL_Y
+        cmp BALL_Y
+        beq check_X_sub2
 ; ; cmp y lower sub pixel
-;         lda PADDLE2_LOWER_SUBPIXEL_Y
-;         cmp BALL_Y
-;         beq check_X_sub2
+        lda PADDLE2_LOWER_SUBPIXEL_Y
+        cmp BALL_Y
+        beq check_X_sub2
         jmp end_of_collide
     check_X_sub2:
 ; cmp upper x  sub pixel     
@@ -90,8 +90,8 @@ check_collisons:
         beq paddle2_collided
         jmp end_of_collide
     paddle1_collided:
-        ; lda #255
-        ; sta BALL_VELOCITY_Y
+        lda #255
+        sta BALL_VELOCITY_Y
         
         ldx #$01
         jsr play_hitsound
@@ -102,11 +102,29 @@ check_collisons:
         lda #1
         sta BALL_VELOCITY_Y
         ldx #255
-        jsr play_hitsound
         stx COLLISION_STATE_REG
+        jsr play_hitsound
     end_of_collide:
         rts
 
+court_bounds:
+    lda #230
+    cmp BALL_Y
+    beq ball_hit_top
+    
+    lda #5
+    cmp BALL_Y
+    beq ball_hit_bottom
+    rts
+    ball_hit_top:
+        lda #255
+        sta BALL_VELOCITY_Y
+        rts
+    ball_hit_bottom:
+        lda #1
+        sta BALL_VELOCITY_Y
+        rts
+    
 ; updates the ball depending on the state located in $25
 update_ball:  
       lda BALL_X

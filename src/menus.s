@@ -21,6 +21,7 @@ pause_game:
     pause_state:
         lda #02
         sta UI_STATE
+        ; jsr play_startup
         rts
     check_unpause:
         lda START_BUTTON 
@@ -31,6 +32,7 @@ pause_game:
         unpause_state:
             lda #01
             sta UI_STATE
+            ; jsr play_startup
             rts
     
 
