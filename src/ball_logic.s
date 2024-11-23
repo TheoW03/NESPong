@@ -145,35 +145,73 @@ update_ball:
     
 
 check_point:
-    rts
-    lda PADDLE1_LOWER_SUBPIXEL_X
-    clc
-    adc #255
-    ldx #00
-    cmp BALL_X
-    bpl player1_point
+    lda BALL_X
+    cmp #$19
+    bcc player1_point
     jmp check_player2_point
-    ; rts
     player1_point:
         inc SCORE_1
         lda #00
         sta $32
+        lda #0
+        sta BALL_VELOCITY_Y
+        jsr play_loser_sound
         ; inc
         ; sta SCORE_1
         rts
     check_player2_point:
-        lda BALL_X
-        cmp PADDLE2_UPPER_SUBPIXEL_X
-        bpl player2_point
+        lda #$f1
+        cmp BALL_X
+        bcc player2_point
         rts
         player2_point:
             inc SCORE_2
             lda #00
             sta $32
+            lda #0
+            sta BALL_VELOCITY_Y
+            jsr play_loser_sound
             ; inc
             ; sta SCORE_2
             rts
+check_winner:
+    lda SCORE_1
+    cmp #10
+    beq player1_wins
+    jmp player2_check
+    player1_wins:
+        lda #$3f
+        sta $2006
+        lda #$00
+        sta $2006
+        lda #$01
+        sta $2007
+        jsr player_wins
+        rts
+    player2_check:
+        lda SCORE_2
+        cmp #10
+        beq player2_wins
+        rts
+        player2_wins:
+            lda #$3f
+            sta $2006
+            lda #$00
+            sta $2006
+            lda #$05
+            sta $2007
 
+            jsr player_wins
+            rts
+player_wins:
+    lda #0
+    sta $32
+    sta SCORE_1
+    sta SCORE_2
+    lda #2
+    sta UI_STATE
+    rts
+    
     
     
 

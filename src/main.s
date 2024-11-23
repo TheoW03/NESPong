@@ -90,6 +90,7 @@ nmi:
     bne game_play
     jmp end
     start_screen:
+          
         jsr init_pallets
         jsr init_title
         ; loads and gronds the input registers
@@ -99,12 +100,16 @@ nmi:
         jsr start_screen_wait
         jmp end
     game_play:
-        lda $00
+
+    
+        lda #$00
         cmp $32
+        
         beq sprite_init
         bne sprites_alr_init
 
         sprite_init:
+            
             jsr init_pallets
             jsr init_sprites
             
@@ -134,6 +139,7 @@ nmi:
                 jsr update_ball
                 jsr check_point
                 jsr court_bounds
+                jsr check_winner
                 lda #0
                 cmp DIVI_2
                 beq is_even

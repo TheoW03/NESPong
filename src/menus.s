@@ -30,6 +30,15 @@ pause_game:
         bne unpause_state
         rts
         unpause_state:
+            ; lazy i know t-t
+            
+            lda #$3f
+            sta $2006
+            lda #$00
+            sta $2006
+
+            lda #$0f
+            sta $2007
             lda #01
             sta UI_STATE
             ; jsr play_startup

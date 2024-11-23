@@ -46,3 +46,5 @@ D-Pad-Down: moves either paddle 1 or paddle 2 down
 select: in game play state it pauses the game
 
 start: in main menu state it either starts the game or 
+
+Each time you hit out the court its consider a point for the paddle who did it

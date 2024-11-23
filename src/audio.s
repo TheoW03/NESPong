@@ -23,3 +23,16 @@ play_startup:
     lda #%11101010
     sta $4003
     rts
+; start up soind
+play_loser_sound:
+    lda #%10011011
+    sta $4001
+
+    lda #%11011011
+    sta $4002
+
+    lda #%11101111
+    sta $4003
+
+    
+    rts
