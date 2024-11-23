@@ -12,8 +12,118 @@ init_pallets:
         lda #$00
         ldx #$00
         rts
-init_sprites:
+init_title:
+        ldx #$00
+
+    initP:
+            lda P, X
+            sta $0200, X
+            inx
+            cpx #$04
+            bne initP
         
+        ldx #$00
+         initO:
+            lda O, X
+            sta $0204, X
+            inx
+            cpx #$04
+            bne initO
+            ldx #$00
+        initN:
+            lda N, X
+            sta $0208, X
+            inx
+            cpx #$04
+            bne initN
+            ldx #$00
+        
+        initG:
+            lda G, X
+            sta $020C, X
+            inx
+            cpx #$04
+            bne initG
+            ldx #$00
+        initp:
+            lda p, X
+            sta $0210, X
+            inx
+            cpx #$04
+            bne initp
+            ldx #$00
+        initr:
+            lda r, X
+            sta $0214, X
+            inx
+            cpx #$04
+            bne initr
+            ldx #$00
+        inite:
+            lda e, X
+            sta $0218, X
+            inx
+            cpx #$04
+            bne inite
+            ldx #$00
+        inits:
+            lda s, X
+            sta $021c, X
+            inx
+            cpx #$04
+            bne inits
+            ldx #$00
+        inits1:
+            lda s2, X
+            sta $0220, X
+            inx
+            cpx #$04
+            bne inits1
+            ldx #$00
+        inits3:
+            lda s3, X
+            sta $0224, X
+            inx
+            cpx #$04
+            bne inits3
+            ldx #$00
+         initt:
+            lda t, X
+            sta $0228, X
+            inx
+            cpx #$04
+            bne initt
+            ldx #$00
+         inita:
+            lda a1, X
+            sta $022c, X
+            inx
+            cpx #$04
+            bne inita
+            ldx #$00
+         initsr:
+            lda r2, X
+            sta $0230, X
+            inx
+            cpx #$04
+            bne initsr
+            ldx #$00
+        initst:
+            lda t2, X
+            sta $0234, X
+            inx
+            cpx #$04
+            bne initst
+            ldx #$00
+        rts
+init_sprites:
+        ldx #00
+        reset_mem:
+            lda $FF
+            sta $0200, X
+            inx
+            cpx #$00
+            bne reset_mem
         load_paddle1:
             lda paddle1, X
             sta $0200, X

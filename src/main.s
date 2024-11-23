@@ -5,7 +5,7 @@
   ; .byte "NES", $1A      ; iNES header identifier
   .byte $4E, $45, $53, $1A
   .byte 2               ; 2x 16KB PRG code
-  .byte 1               ; 1x  8KB CHR data
+  .byte 2               ; 1x  8KB CHR data
   .byte $01, $00        ; mapper 0, vertical mirroring
 .segment "VECTORS"
   ;; When an NMI happens (once per frame if enabled) the label nmi:
@@ -91,6 +91,7 @@ nmi:
     jmp end
     start_screen:
         jsr init_pallets
+        jsr init_title
         ; loads and gronds the input registers
         jsr init_input        
         ; stores the input in $20 and $21  
@@ -148,7 +149,7 @@ nmi:
                     lda #$02
                     sta $4014
                     rti   
-
+ 
 .include "./load_sprites.s"
 .include "./read_controller.s"
 .include "./character_controller.s"
@@ -156,6 +157,11 @@ nmi:
 .include "./audio.s"
 .include "./menus.s"
 
-.segment "CHARS" ; for graphics
-.incbin  "./assets/sprites.chr"
 
+; source for font 
+; https://forums.nesdev.org/viewtopic.php?t=10284
+
+.segment "CHARS"
+.incbin  "./assets/ascii.chr"
+; .segment "CHARS1"
+; .incbin  "./assets/ascii.chr"
