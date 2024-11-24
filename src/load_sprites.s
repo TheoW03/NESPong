@@ -124,6 +124,8 @@ init_sprites:
             inx
             cpx #$00
             bne reset_mem
+            ldx #00
+            lda #00
         load_paddle1:
             lda paddle1, X
             sta $0200, X
