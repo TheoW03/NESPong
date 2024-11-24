@@ -68,17 +68,30 @@ check_collisons:
     paddle2_collides:
         lda PADDLE2_UPPER_SUBPIXEL_Y
         cmp BALL_Y
-        bcs check_X_sub2
-        beq check_X_sub2
-; ; cmp y upper sub pixel
-        lda PADDLE2_UPPER_SUBPIXEL_Y
-        cmp BALL_Y
-        beq check_X_sub2
-; ; cmp y lower sub pixel
-        lda PADDLE2_LOWER_SUBPIXEL_Y
-        cmp BALL_Y
-        beq check_X_sub2
+        bcc check_upper_sub_pixe2
+        beq check_upper_sub_pixe2
         jmp end_of_collide
+        check_upper_sub_pixe2:
+            lda PADDLE2_LOWER_SUBPIXEL_Y
+            cmp BALL_Y
+            bpl check_X_sub2
+            lda PADDLE2_LOWER_SUBPIXEL_Y
+            cmp BALL_Y
+            beq check_X_sub2
+            jmp end_of_collide
+;         lda PADDLE2_UPPER_SUBPIXEL_Y
+;         cmp BALL_Y
+;         bcs check_X_sub2
+;         beq check_X_sub2
+; ; ; cmp y upper sub pixel
+;         lda PADDLE2_UPPER_SUBPIXEL_Y
+;         cmp BALL_Y
+;         beq check_X_sub2
+; ; ; cmp y lower sub pixel
+;         lda PADDLE2_LOWER_SUBPIXEL_Y
+;         cmp BALL_Y
+;         beq check_X_sub2
+;         jmp end_of_collide
     check_X_sub2:
 ; cmp upper x  sub pixel     
         lda PADDLE2_UPPER_SUBPIXEL_X
