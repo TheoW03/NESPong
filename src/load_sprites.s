@@ -146,6 +146,30 @@ init_sprites:
             inx
             cpx #$08 
             bne load_paddle2
+            ldx #0
+        load_score:
+            lda score, X
+            sta $0214, X
+            inx
+            cpx #$04 
+            bne load_score
+            ldx #0
+        load_score1:
+            lda score2, X
+            sta $0218, X
+            inx
+            cpx #$04 
+            bne load_score1
+        
+        lda SCORE_1
+        clc
+        adc #$30
+        sta SCORE1_NUM
+        
+        lda SCORE_2
+        clc
+        adc #$30
+        sta SCORE2_NUM
         lda #$01
         sta $32 ; verificationm this method works 
         rts
