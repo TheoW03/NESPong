@@ -39,8 +39,8 @@
 .define BALL_X $020b
 .define BALL_Y $0208
 
-.define SCORE1_NUM $0215
-.define SCORE2_NUM $0219
+.define SCORE1_SPRITE_INDEX $0215
+.define SCORE2_SPRITE_INDEX $0219
 
 
 .define SCORE_1 $38

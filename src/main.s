@@ -74,6 +74,9 @@ reset:
         ; jsr init_sprites
         ldx #00
         stx UI_STATE
+        ldx #$30
+        stx SCORE_1
+        stx SCORE_2
         cli
         lda #%10010000 ; vblank status
         sta $2000

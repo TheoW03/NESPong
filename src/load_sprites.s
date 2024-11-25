@@ -162,14 +162,14 @@ init_sprites:
             bne load_score1
         
         lda SCORE_1
-        clc
-        adc #$30
-        sta SCORE1_NUM
+        ; clc
+        ; adc #$30
+        sta SCORE1_SPRITE_INDEX
         
         lda SCORE_2
-        clc
-        adc #$30
-        sta SCORE2_NUM
+        ; clc
+        ; adc #$30
+        sta SCORE2_SPRITE_INDEX
         lda #$01
         sta $32 ; verificationm this method works 
         rts

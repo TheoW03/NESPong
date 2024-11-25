@@ -8,53 +8,19 @@ check_collisons:
     lda PADDLE1_UPPER_SUBPIXEL_Y
 
     cmp BALL_Y
-
-    bcc check_upper_pixel
+    
     beq check_X_sub
+    bcc check_upper_pixel
     jmp paddle2_collides
     check_upper_pixel:
         lda PADDLE1_LOWER_SUBPIXEL_Y
         cmp BALL_Y
-        bpl check_X_sub
+        bcs check_X_sub
         lda PADDLE1_LOWER_SUBPIXEL_Y
         cmp BALL_Y
         beq check_X_sub
         jmp paddle2_collides
         
-
-; checks the bottom y sub pxiel on paddle1  + 1
-    
-    ; lda PADDLE1_UPPER_SUBPIXEL_Y
-    ; clc 
-
-    ; ; consider <= skulling
-    ; adc #04
-    ; cmp BALL_Y
-    ; beq check_X_sub
-
-    ; lda PADDLE1_UPPER_SUBPIXEL_Y
-    ; clc
-    ; adc #08
-    ; cmp BALL_Y
-    ; beq check_X_sub
-    
-    ; lda PADDLE1_LOWER_SUBPIXEL_Y
-    ; cmp BALL_Y
-
-    ; lda PADDLE1_LOWER_SUBPIXEL_Y
-    ; clc 
-    ; sbc #04
-    ; cmp BALL_Y
-    ; beq check_X_sub
-    
-    
-    ; lda PADDLE1_LOWER_SUBPIXEL_Y
-    ; clc 
-    ; sbc #08
-    ; cmp BALL_Y
-    ; beq check_X_sub
-
-
     check_X_sub:
 ; cmp x  upper sub pixel paddle1  
         lda PADDLE1_UPPER_SUBPIXEL_X
@@ -79,19 +45,7 @@ check_collisons:
             cmp BALL_Y
             beq check_X_sub2
             jmp end_of_collide
-;         lda PADDLE2_UPPER_SUBPIXEL_Y
-;         cmp BALL_Y
-;         bcs check_X_sub2
-;         beq check_X_sub2
-; ; ; cmp y upper sub pixel
-;         lda PADDLE2_UPPER_SUBPIXEL_Y
-;         cmp BALL_Y
-;         beq check_X_sub2
-; ; ; cmp y lower sub pixel
-;         lda PADDLE2_LOWER_SUBPIXEL_Y
-;         cmp BALL_Y
-;         beq check_X_sub2
-;         jmp end_of_collide
+    
     check_X_sub2:
 ; cmp upper x  sub pixel     
         lda PADDLE2_UPPER_SUBPIXEL_X
@@ -187,9 +141,11 @@ check_point:
             ; inc
             ; sta SCORE_2
             rts
+
+; this checks a winner 
 check_winner:
     lda SCORE_1
-    cmp #10
+    cmp #$3a
     beq player1_wins
     jmp player2_check
     player1_wins:
@@ -203,7 +159,7 @@ check_winner:
         rts
     player2_check:
         lda SCORE_2
-        cmp #10
+        cmp #$3a
         beq player2_wins
         rts
         player2_wins:
@@ -219,6 +175,7 @@ check_winner:
 player_wins:
     lda #0
     sta $32
+    lda #$30
     sta SCORE_1
     sta SCORE_2
     lda #2
