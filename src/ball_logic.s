@@ -40,7 +40,7 @@ check_collisons:
         check_upper_sub_pixe2:
             lda PADDLE2_LOWER_SUBPIXEL_Y
             cmp BALL_Y
-            bpl check_X_sub2
+            bcs check_X_sub2
             lda PADDLE2_LOWER_SUBPIXEL_Y
             cmp BALL_Y
             beq check_X_sub2
