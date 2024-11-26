@@ -56,10 +56,14 @@ wait_for_vblank:
         bit $2002
         bpl vblank_loop
     rts
+
+
+; https://www.nesdev.org/wiki/Random_number_generator
+; this is the source for the algorithm for random numebrs.
+
 prng:
 	
-	; sty DIVI_2
-	; sty seed 
+
 	ldy #8   ; iteration count (generates 8 bits)
 	lda seed
 :
@@ -73,9 +77,3 @@ prng:
 	sta seed
 	cmp #0     ; reload flags
 	rts
-; random_num:
-;     lda #32
-;     sta RANDOM
-;     rts
-; random_bytes:
-; 	.byte $FF, $01

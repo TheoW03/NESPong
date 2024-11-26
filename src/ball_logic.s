@@ -137,6 +137,9 @@ update_ball:
       lda #0
       cmp DIVI_2
       beq incr_Y_vel
+
+      cmp DIVI_3
+      beq incr_Y_vel
       rts
       incr_Y_vel:
         clc
