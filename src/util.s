@@ -20,6 +20,7 @@
 .define BALL_VELOCITY_Y $26
 .define UI_STATE $30
 .define DIVI_2 $27
+.define DIVI_3 $29
 .define SELECT_RESET $28
 ;essental memory addresses for sprites
 
@@ -43,8 +44,11 @@
 .define SCORE2_SPRITE_INDEX $0219
 
 
-.define SCORE_1 $38
-.define SCORE_2 $39
+.define SCORE_1 $36
+.define SCORE_2 $37
+
+.define seed $40
+.define seedplus1 $41
 
 
 wait_for_vblank:
@@ -52,8 +56,26 @@ wait_for_vblank:
         bit $2002
         bpl vblank_loop
     rts
-
+prng:
+	
+	; sty DIVI_2
+	; sty seed 
+	ldy #8   ; iteration count (generates 8 bits)
+	lda seed
+:
+	asl        ; shift the register
+	rol seedplus1
+	bcc :+
+	eor #$39   ; apply XOR feedback whenever a 1 bit is shifted out
+:
+	dey
+	bne :--
+	sta seed
+	cmp #0     ; reload flags
+	rts
 ; random_num:
 ;     lda #32
 ;     sta RANDOM
 ;     rts
+; random_bytes:
+; 	.byte $FF, $01

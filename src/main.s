@@ -82,11 +82,14 @@ reset:
         sta $2000
         lda #%00011110 ; vblank status
         sta $2001
+        lda #87
+        sta seed
         
 
     loop:
         jmp loop
 nmi:
+    ; jsr prng
     lda #0
     cmp UI_STATE
     beq start_screen
@@ -103,11 +106,10 @@ nmi:
         jsr start_screen_wait
         jmp end
     game_play:
+        jsr prng
 
-    
         lda #$00
         cmp $32
-        
         beq sprite_init
         bne sprites_alr_init
 
@@ -143,17 +145,26 @@ nmi:
                 jsr check_point
                 jsr court_bounds
                 jsr check_winner
-                lda #0
-                cmp DIVI_2
-                beq is_even
-                bne isNotEven
-                is_even:
-                    lda #1
-                    sta DIVI_2
-                    jmp end
+                inc DIVI_2
+                lda DIVI_2
+                cmp DIVI_3
+                beq isNotEven
+                jmp end
                 isNotEven:
                     lda #0
                     sta DIVI_2
+                ; lda DIVI_2
+                ; cmp DIVI_3
+
+                ; lda #0
+                ; cmp DIVI_2
+                ; beq is_even
+                ; bne isNotEven
+                ; is_even:
+                ;     lda #1
+                ;     sta DIVI_2
+                ;     jmp end
+                
                 end:
                     lda #$02
                     sta $4014

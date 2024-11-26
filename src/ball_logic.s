@@ -57,23 +57,58 @@ check_collisons:
         beq paddle2_collided
         jmp end_of_collide
     paddle1_collided:
-        lda #255
-        sta BALL_VELOCITY_Y
-        
-        ldx #$01
+        ; ldx DIVI_2
+        ; lda random_bytes,X
+        jsr set_ball_vel
         jsr play_hitsound
 
+        ldx #$01
         stx COLLISION_STATE_REG
         jmp end_of_collide
     paddle2_collided:
-        lda #1
-        sta BALL_VELOCITY_Y
+        ; ldx DIVI_2
+        ; lda random_bytes,X
+        ; lda seed 
+        jsr set_ball_vel
         ldx #255
         stx COLLISION_STATE_REG
         jsr play_hitsound
     end_of_collide:
         rts
+set_ball_vel:  
+    jsr prng
+    lda seed
+    and #1
+    cmp #00
+    beq isNotEv
+    bne isEv    
+    isEv:
+        lda #255
+        sta BALL_VELOCITY_Y
+        jmp ballB
+    isNotEv:
+        lda #01
+        sta BALL_VELOCITY_Y
+        ballB:
+            ; sta DIVI_3
+            
+            jsr prng
+            lda seed
+            ; ldx #5
+            ; stx $0
+            lsr
+            lsr
+            lsr
+            lsr
+            lsr
+            lsr
+            
+            sta DIVI_3
+            lda #00
+            sta DIVI_2
+            rts
 
+        ; rts
 court_bounds:
     lda #230
     cmp BALL_Y
