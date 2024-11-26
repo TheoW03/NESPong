@@ -36,6 +36,12 @@ download it here
 
 https://fceux.com/web/download.html
 
+## Release
+
+you can also download the build on itch.io
+
+https://theow25.itch.io/nes-pong
+
 
 ## Controls
 
@@ -48,3 +54,5 @@ select: in game play state it pauses the game
 start: in main menu state it either starts the game or 
 
 Each time you hit out the court its consider a point for the paddle who did it
+
+
