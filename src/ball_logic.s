@@ -121,10 +121,13 @@ court_bounds:
     ball_hit_top:
         lda #255
         sta BALL_VELOCITY_Y
+        jsr play_hitsound
         rts
     ball_hit_bottom:
         lda #1
         sta BALL_VELOCITY_Y
+        jsr play_hitsound
+
         rts
     
 ; updates the ball depending on the state located in $25
