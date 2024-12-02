@@ -1,6 +1,11 @@
-; sekelton if you want to add on to the tests
-
-
+; this is the main file
+;
+; =======sources===============
+; the NES font sprites:  https://forums.nesdev.org/viewtopic.php?t=10284
+; Random number algorithm: https://www.nesdev.org/wiki/Random_number_generator
+; code for input: https://www.youtube.com/watch?v=nAStgQzPrAQ&t=1s&ab_channel=NesHacker
+; sprites and sound were created by me :]
+;===============================
 .segment "HEADER"
   ; .byte "NES", $1A      ; iNES header identifier
   .byte $4E, $45, $53, $1A
