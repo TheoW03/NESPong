@@ -5,6 +5,12 @@ start_screen_wait:
     and INPUT_REG1
     cmp #00
     bne update_start
+
+    lda START_BUTTON 
+    and INPUT_REG2
+    cmp #00
+    bne update_start
+
     rts
     update_start:
         lda #1
@@ -13,21 +19,32 @@ start_screen_wait:
         rts
 
 pause_game:
-    lda SELECT 
+    lda SELECT
     and INPUT_REG1
     cmp #00
     bne pause_state
-    beq check_unpause
+    
+    lda SELECT
+    and INPUT_REG2
+    cmp #00
+    bne pause_state
+    jmp check_unpause
+
     pause_state:
         lda #02
         sta UI_STATE
         ; jsr play_startup
-        rts
     check_unpause:
         lda START_BUTTON 
         and INPUT_REG1
         cmp #00
         bne unpause_state
+        
+        lda START_BUTTON 
+        and INPUT_REG2
+        cmp #00
+        bne unpause_state
+
         rts
         unpause_state:
             ; lazy i know t-t
