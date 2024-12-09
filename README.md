@@ -36,12 +36,6 @@ download it here
 
 https://fceux.com/web/download.html
 
-## Release
-
-you can also download the build on itch.io
-
-https://theow25.itch.io/nes-pong
-
 
 ## Controls
 

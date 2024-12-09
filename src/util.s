@@ -62,8 +62,6 @@ wait_for_vblank:
 ; this is the source for the algorithm for random numebrs.
 
 prng:
-	
-
 	ldy #8   ; iteration count (generates 8 bits)
 	lda seed
 :

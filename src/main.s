@@ -38,7 +38,7 @@ reset:
     txs
 
     ; clear PPU registers
-    ldx $00
+    ldx #$00
     stx $2000
     stx $2001
 
@@ -85,7 +85,7 @@ reset:
         cli
         lda #%10010000 ; vblank status
         sta $2000
-        lda #%00011110 ; vblank status
+        lda #%00011110 ; enable renderering
         sta $2001
         lda #87
         sta seed
