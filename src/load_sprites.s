@@ -3,6 +3,7 @@
 ; .define INPUT_REG $20
 
 init_pallets:
+    ldx #00
     load_pallete:
             lda palletes,X 
             sta $2007
